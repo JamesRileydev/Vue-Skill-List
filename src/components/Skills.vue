@@ -2,7 +2,7 @@
   <div class="hello">
     <div class="holder">
       <form @submit.prevent="addSkill">
-      <input type="text" placeholder="Enter a skill you have..." v-model="skill" v-validate="'min:5'" name="skill">
+      <input type="text" placeholder="Enter a skill you have, then press enter" v-model="skill" v-validate="'min:5'" name="skill">
 
       <transition name="alert-in" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
         <p class="alert" v-if="errors.has('skill')">{{errors.first('skill')}}</p>
@@ -11,11 +11,14 @@
 
       <ul>
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li v-for="(data, index) in skills" :key='index'>{{data.skill}}</li>
+          <li v-for="(data, index) in skills" :key='index'>
+            {{data.skill}}
+            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
+            </li>
         </transition-group>
       </ul>
 
-      <p>These are the skills you possess.</p>
+      <p>This a list of items</p>
       
     </div>
   </div>
@@ -45,6 +48,11 @@ export default {
             console.log('Not Valid');
           }
         })
+      },
+
+      remove(id) {
+        this.skills.splice(id,1);
+
       }
     }
   }
@@ -55,6 +63,7 @@ export default {
 <style scoped>
 
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"; 
 
 .holder {
     background: #fff;
@@ -90,7 +99,8 @@ export default {
     border: 0;
     padding: 20px;
     font-size: 1.3em;
-    background-color: #f3a32b;
+    background-color: rgb(43, 48, 48);
+    color: #fff;
   }
 
     .alert {
@@ -118,6 +128,12 @@ export default {
   100% {
     transform: scale(1);
   }
+}
+
+i {
+  float: right;
+  cursor: pointer;
+
 }
 
 </style>
