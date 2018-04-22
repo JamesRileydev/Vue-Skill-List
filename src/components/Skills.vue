@@ -2,7 +2,7 @@
   <div class="hello">
     <div class="holder">
       <form @submit.prevent="addSkill">
-      <input type="text" placeholder="Enter a skill you have, then press enter" v-model="skill" v-validate="'min:5'" name="skill">
+      <input type="text" placeholder="Type a list item, then press enter" v-model="skill" v-validate="'min:4'" name="skill">
 
       <transition name="alert-in" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
         <p class="alert" v-if="errors.has('skill')">{{errors.first('skill')}}</p>
